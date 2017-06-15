@@ -9,8 +9,7 @@ data/
 logs/
 mcj.sql
 message.php
-Would skip repository mobile/admin/includes/jpush/vendor/monolog/monolog
-Would skip repository mobile/admin/includes/jpush/vendor/nategood/httpful
-Would skip repository mobile/admin/includes/jpush/vendor/psr/log
+
 
 *.sql
+/mobile/admin/includes/jpush/

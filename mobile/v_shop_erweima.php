@@ -37,7 +37,7 @@ if(is_shop_erweima($_SESSION['user_id']) == 0)
 	$scene_id = $db->getOne("select id from " . $GLOBALS['ecs']->table('weixin_qcode') . " order by id desc");
 	$scene_id = $scene_id ? $scene_id+1 : 1;
 	$qcode = $weixin->getQRCode($scene_id,1,$_SESSION['user_id']);
-	$GLOBALS['db']->query("insert into " . $GLOBALS['ecs']->table('weixin_qcode') . " (`id`,`type`,`content`,`qcode`) value ($scene_id,6,'" . $_SESSION['user_id'] . "','{$qcode['ticket']}')");
+	$GLOBALS['db']->query("insert into " . $GLOBALS['ecs']->table('weixin_qcode') . " (`id`,`type`,`content`,`qcode`) value ($scene_id,7,'" . $_SESSION['user_id'] . "','{$qcode['ticket']}')");
 }
 
 
@@ -60,7 +60,7 @@ if (!$smarty->is_cached('v_user_erweima.dwt', $cache_id))
     }else
     {
 		$smarty->assign('user_info',	   get_user_info_by_user_id($_SESSION['user_id'])); 
-		$smarty->assign('erweima',get_erweima_by_user_id($_SESSION['user_id']));
+		$smarty->assign('erweima',get_shop_erweima_by_user_id($_SESSION['user_id']));
 		$smarty->assign('user_id',$_SESSION['user_id']);
 	}
 	

@@ -30,8 +30,7 @@ class usermodel {
 
 	function get_user_by_username($username) {
 		$arr = $this->db->fetch_first("SELECT * FROM ".UC_DBTABLEPRE."members WHERE username='$username'");
-		hlog2("get_user_by_username:");
-		hlog2($arr);
+
 		return $arr;
 	}
 

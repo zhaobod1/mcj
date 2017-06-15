@@ -48,7 +48,7 @@ function is_erweima($user_id)
 //是否生成过微店二维码
 function is_shop_erweima($user_id)
 {
-	$sql = "SELECT count(*) FROM " . $GLOBALS['ecs']->table('weixin_qcode') . " where `type`='6' and content='$user_id'";
+	$sql = "SELECT count(*) FROM " . $GLOBALS['ecs']->table('weixin_qcode') . " where `type`='7' and content='$user_id'";
 	return $GLOBALS['db']->getOne($sql);
 }
 
@@ -62,7 +62,7 @@ function get_erweima_by_user_id($user_id)
 //获取商户二维码
 function get_shop_erweima_by_user_id($user_id)
 {
-	$sql = "SELECT * from " . $GLOBALS['ecs']->table('weixin_qcode') . " WHERE `type` = 6 AND content = '$user_id'";
+	$sql = "SELECT * from " . $GLOBALS['ecs']->table('weixin_qcode') . " WHERE `type` = 7 AND content = '$user_id'";
 	return $GLOBALS['db']->getRow($sql);
 }
 

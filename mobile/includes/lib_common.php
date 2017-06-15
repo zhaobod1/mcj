@@ -3345,6 +3345,11 @@ function hlog2($arg) {
 	$fp = file_put_contents( $path,$log, FILE_APPEND);
 	return true;
 }
+function hlog2WithTitle($arg,$title='') {
+	if($title)
+		hlog2('--------'.$title.'--------');
+	hlog2($arg);
+}
 
 function fixSync() {
 	$url = "http://u.mengchengjie.com";

@@ -303,6 +303,9 @@ if ($event['event'] == "CLICK"){
 //$content = $api->getstr($content);
 //处理用户扫一扫
 if ($event['event'] == "SCAN"){
+	//hlog2WithTitle($event,'$event');
+	//hlog2WithTitle($content,'$content');
+
 	$content = intval($event['key']);//场景值ID，临时二维码时为32位非0整型，永久二维码时最大值为100000
 	$res = $db->getRow("select * from " . $GLOBALS['ecs']->table('weixin_qcode') . " where id='$content'");
 	if($res){
@@ -323,6 +326,8 @@ if ($event['event'] == "SCAN"){
 		}elseif($res['type'] == 3){
 			echo $weixin->text($res['content'])->reply();exit;
 		}elseif($res['type'] == 4){
+			//hlog2WithTitle($res,'res');
+			//hlog2WithTitle($content,'content');
 			if($api->isBindUser($wxid) === false)
 			{
 				$api->bind_record($wxid,$res['content']);
@@ -349,7 +354,18 @@ if ($event['event'] == "SCAN"){
 			$newsData[0]['PicUrl'] = $baseurl.$shop_logo;
 			$newsData[0]['Url'] = $baseurl."mobile/supplier.php?suppId=" . $res['content'];
 			echo $weixin->news($newsData)->reply();exit;
-		}else{
+		} elseif ($res['type'] == 7) {
+			$dianpu=get_dianpu_by_user_id($res['content']);
+			hlog2WithTitle($dianpu,'$dianpu');
+			die;
+			$shop_logo = $GLOBALS['db']->getOne($sql);
+			$newsData[0]['Title'] = $shop_name;
+			$newsData[0]['Description'] = $shop_desc;
+			$newsData[0]['PicUrl'] = $baseurl.$shop_logo;
+			$newsData[0]['Url'] = $baseurl."mobile/supplier.php?suppId=" . $res['content'];
+			echo $weixin->news($newsData)->reply();exit;
+		}
+		else{
 			echo $weixin->text($res['content'])->reply();exit;
 		}
 	}
@@ -404,6 +420,6 @@ if($reMsg){
 	if($content){
 		$xhyData = $weixinconfig['auto_reply'];
 		//$xhyData = $weixin->http_post("http://www.niurenqushi.com/app/simsimi/ajax.aspx",array('txt'=>$content));
-		echo $weixin->text("自动回复：".$xhyData)->reply();exit;
+		//echo $weixin->text("自动回复：".$xhyData)->reply();exit;
 	}
 }

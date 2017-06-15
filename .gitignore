@@ -13,3 +13,4 @@ message.php
 
 *.sql
 /mobile/admin/includes/jpush/
+mobile/admin/includes/jpush/vendor/nategood/httpful

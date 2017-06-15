@@ -119,7 +119,6 @@ if (!$smarty->is_cached('v_user_erweima.dwt', $cache_id))
 		$smarty->assign('user_id',$_SESSION['user_id']);
 	}
 	
-	
     /* 页面中的动态内容 */
     assign_dynamic('v_user_erweima');
 }

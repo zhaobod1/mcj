@@ -61,7 +61,6 @@ if (!$smarty->is_cached('v_user.dwt', $cache_id))
     /* 页面中的动态内容 */
     assign_dynamic('v_user');
 }
-$smarty->assign('synlogin',$GLOBALS['synlogin']);
 $smarty->display('v_user.dwt', $cache_id);
 
 

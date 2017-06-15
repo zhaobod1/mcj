@@ -45,12 +45,25 @@ function is_erweima($user_id)
 	$sql = "SELECT count(*) FROM " . $GLOBALS['ecs']->table('weixin_qcode') . " where `type`='4' and content='$user_id'";
 	return $GLOBALS['db']->getOne($sql);
 }
+//是否生成过微店二维码
+function is_shop_erweima($user_id)
+{
+	$sql = "SELECT count(*) FROM " . $GLOBALS['ecs']->table('weixin_qcode') . " where `type`='6' and content='$user_id'";
+	return $GLOBALS['db']->getOne($sql);
+}
 
 //获取用户二维码
 function get_erweima_by_user_id($user_id)
 {
 	$sql = "SELECT * from " . $GLOBALS['ecs']->table('weixin_qcode') . " WHERE `type` = 4 AND content = '$user_id'";
 	return $GLOBALS['db']->getRow($sql); 
+}
+
+//获取商户二维码
+function get_shop_erweima_by_user_id($user_id)
+{
+	$sql = "SELECT * from " . $GLOBALS['ecs']->table('weixin_qcode') . " WHERE `type` = 6 AND content = '$user_id'";
+	return $GLOBALS['db']->getRow($sql);
 }
 
 //获取用户余额

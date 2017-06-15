@@ -38,7 +38,7 @@
 <li><a href="v_user_notes.php"><span class="mun2"></span><em>店铺账单</em></a></li>
 <li><a href="v_user_huiyuan.php"><span class="mun3"></span><em>小店会员</em></a></li>
 <li><a href="v_user_catelog.php"><span class="mun5"></span><em>小店上货</em></a></li>
-<li><a href="v_user_erweima.php?user_id={$user_id}"><span class="mun4"></span><em>推广二维码</em></a></li>
+<li><a href="v_shop_erweima.php?user_id={$user_id}"><span class="mun4"></span><em>推广二维码</em></a></li>
 <li class="vuser_mid" style=" width:50%;"></li>
 <li><a href="v_user_dianpu.php"><span class="mun6"></span><em>店铺设置</em></a></li>
 

@@ -356,7 +356,7 @@ if ($event['event'] == "SCAN"){
 			echo $weixin->news($newsData)->reply();exit;
 		} elseif ($res['type'] == 7) {
 			$dianpu=get_dianpu_by_user_id($res['content']);
-			hlog2WithTitle($dianpu,'$dianpu');
+			//hlog2WithTitle($dianpu,'$dianpu');
 			die;
 			$shop_logo = $GLOBALS['db']->getOne($sql);
 			$newsData[0]['Title'] = $shop_name;

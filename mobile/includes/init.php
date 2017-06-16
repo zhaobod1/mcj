@@ -165,6 +165,20 @@ if (!defined('INIT_NO_USERS'))
 {
     /* 会员信息 */
     $user =& init_users();
+
+	/* 青岛火一五信息科技有限公司huo15.com 日期：2017/6/16 */
+	if ($_SESSION['user_id']) {
+		$sql="SELECT user_id FROM ".$GLOBALS['ecs']->table('users') . " WHERE `user_id`=" . $_SESSION['user_id'];
+		$db_user_id=$GLOBALS['db']->getOne($sql);
+		if (!$db_user_id) {
+			$sess->destroy_session();
+			session_destroy();
+			setcookie('ECS');
+
+		}
+	}
+	/* 青岛火一五信息科技有限公司huo15.com 日期：2017/6/16 end */
+
     if (!isset($_SESSION['user_id']))
     {
         /* 获取投放站点的名称 */
@@ -205,6 +219,9 @@ if (!defined('INIT_NO_USERS'))
             }
         }
     }
+
+
+
 
     /* 设置推荐会员 */
     if (isset($_GET['u']))

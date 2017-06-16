@@ -313,79 +313,7 @@ function action_default ()
 	$user_info = get_profile($user_id);
 	$user_info['email'] = encrypt_email($user_info['email']);
 	$user_info['mobile_phone'] = encrypt_mobile($user_info['mobile_phone']);
-	/*
-array(34) {
-  ["rank_name"]=>
-  string(12) "普通会员"
-  ["discount"]=>
-  string(4) "100%"
-  ["email"]=>
-  string(16) "zhaobod6@163.com"
-  ["headimg"]=>
-  string(129) "http://wx.qlogo.cn/mmopen/2Q5A4CeBjTGlDcrHnUic0J0qogJsrLzvUpaKZW94QTQvrKATIp1WWZXAViaTL5anNGibF7XQzuKDCaviczhxsHCQqKiblMokXtdyx/0"
-  ["user_name"]=>
-  string(6) "涤生"
-  ["password"]=>
-  string(32) "41cbfb101a81e7a4985c5ab8a2196f4b"
-  ["rank_points"]=>
-  string(1) "0"
-  ["pay_points"]=>
-  string(7) "0积分"
-  ["user_money"]=>
-  string(4) "0.00"
-  ["sex"]=>
-  string(1) "1"
-  ["birthday"]=>
-  string(10) "1957-01-01"
-  ["question"]=>
-  string(0) ""
-  ["bonus"]=>
-  array(0) {
-  }
-  ["qq"]=>
-  string(0) ""
-  ["msn"]=>
-  string(0) ""
-  ["office_phone"]=>
-  string(0) ""
-  ["home_phone"]=>
-  string(0) ""
-  ["mobile_phone"]=>
-  string(11) "185*****815"
-  ["passwd_question"]=>
-  NULL
-  ["passwd_answer"]=>
-  NULL
-  ["real_name"]=>
-  string(0) ""
-  ["card"]=>
-  string(0) ""
-  ["face_card"]=>
-  string(0) ""
-  ["back_card"]=>
-  string(0) ""
-  ["country"]=>
-  string(1) "0"
-  ["province"]=>
-  string(1) "0"
-  ["city"]=>
-  string(1) "0"
-  ["district"]=>
-  string(1) "0"
-  ["address"]=>
-  string(0) ""
-  ["validated"]=>
-  string(1) "1"
-  ["is_validated"]=>
-  string(1) "0"
-  ["status"]=>
-  string(1) "0"
-  ["is_surplus_open"]=>
-  string(1) "1"
-  ["surplus_password"]=>
-  string(32) "fcea920f7412b5da7be0cf42b8c93759"
-}
- */
+	
 	$smarty->assign('info', $user_info);
 	$smarty->assign('action', 'account_security');
 	$smarty->display('user_security.dwt');
@@ -583,9 +511,6 @@ function action_do_password_reset ()
 	}
 	else
 	{
-		/* 火一五信息科技 huo15.com 同步ucenter密码 日期：2017/5/9 */
-
-		/* 火一五信息科技 huo15.com 同步ucenter密码 日期：2017/5/9 end */
 		exit(json_encode(array('error' => 0, 'content' => '', 'url' => '')));
 	}
 }
@@ -849,18 +774,15 @@ function action_do_email_validate ()
 	}
 	
 	$user_name = $_SESSION['user_name'];
-	$result = $GLOBALS['user']->edit_user(array('user_name' => $user_name, 'email' => $email, 'is_validated' => 1));
-	//$result = $GLOBALS['user']->edit_user(array('username' => $user_name, 'email' => $email, 'email_validated' => 1));
-	$result = $GLOBALS['user']->edit_user(array('username' => $user_name, 'email' => $email, 'is_validated' => 1));
-	$sql="update " . $ecs->table('users') . " set is_validated=1 where user_name = '" . $_SESSION['user_name'] . "'";
-	$db->query($sql);
+	
+	$result = $GLOBALS['user']->edit_user(array('username' => $user_name, 'email' => $email, 'email_validated' => 1));
+	
 	if($result == false)
 	{
 		exit(json_encode(array('error' => 1, 'content' => '邮箱地址验证失败，请重新尝试', 'url' => '')));
 	}
 	else
 	{
-		//huo15-email
 		//设置为第二步
 		$_SESSION['security_validate'] = true;
 	
@@ -924,24 +846,14 @@ function action_mobile_binding ()
 	// 获取验证方式
 	$validate_types = get_validate_types($user_id);
 	$smarty->assign('validate_types', $validate_types);
-	$sql = "select aite_id from ecs_users where user_id=" . $user_id;
-	$open_id=$db->getOne($sql);
-	$sql = "select mobile_phone from ecs_users where user_id=" . $user_id;
-	$mobile_phone=$db->getOne($sql);
-	if (strlen($open_id)>11 && strlen($mobile_phone)<11) {
-
-		$_SESSION['security_validate']=true;
-		$smarty->assign('step', 'step_2');
-	} else {
-		$smarty->assign('step', 'step_1');
-
-	}
-
+	
+	$smarty->assign('step', 'step_1');
+	
 	$smarty->display('user_security.dwt');
 }
 
 /**
- * 绑定手机
+ * 绑定邮箱
  */
 function action_to_mobile_binding ()
 {
@@ -1013,32 +925,12 @@ function action_do_mobile_binding ()
 
 	$result = $GLOBALS['user']->edit_user(array('username' => $user_name, 'mobile_phone' => $mobile, 'mobile_validated' => 1));
 
-	//$result = $GLOBALS['user']->edit_user(array('username' => $user_name, 'mobile_phone' => $mobile, 'validated' => 1));
-
 	if($result == false)
 	{
 		exit(json_encode(array('error' => 1, 'content' => '绑定手机号码失败，请重新尝试', 'url' => '')));
 	}
 	else
 	{
-
-		/* 火一五信息科技 huo15.com 同步手机号码ucenter 日期：2017/5/10 */
-		include_once 'includes/ucenterInit.php';
-		$profile=array(
-			'username'=>$user_name,
-			'mobile_phone'=>$mobile,
-		);
-		$uCenter = $GLOBALS['uCenter'];
-		$res = $uCenter->edit_user($profile);
-		if (!$res) {
-			show_message("同步数据失败，请重试，或者联系管理员解决错误。（手机端同步手机号时）");
-			die;
-		}
-
-		/* 火一五信息科技 huo15.com 同步手机号码ucenter 日期：2017/5/10 end */
-
-
-
 		//设置为第二步
 		$_SESSION['security_validate'] = true;
 
@@ -1047,7 +939,7 @@ function action_do_mobile_binding ()
 }
 
 /**
- * 绑定手机成功
+ * 绑定邮箱成功
  */
 function action_mobile_binding_success()
 {
@@ -1174,12 +1066,6 @@ function action_do_mobile_validate ()
 
 	$result = $GLOBALS['user']->edit_user(array('username' => $user_name, 'mobile_phone' => $mobile_phone, 'mobile_validated' => 1));
 
-	if ($result) {
-		$sql='update ' . $GLOBALS['ecs']->table('users') . ' set validated=1 where mobile_phone="' . $mobile_phone . '"';
-		$GLOBALS['db']->query($sql);
-
-
-	}
 	if($result == false)
 	{
 		exit(json_encode(array('error' => 1, 'content' => '手机号码验证失败，请重新尝试', 'url' => '')));

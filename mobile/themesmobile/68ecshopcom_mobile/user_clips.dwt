@@ -83,7 +83,8 @@
     </style>
     <script>
       $(function () {
-        
+          $("#searchTipBg").hide();
+          $("#tipBox-wrapper").hide();
         $(".tip-btn").click(function () {
           $("#searchTipBg").hide();
           $("#tipBox-wrapper").hide();

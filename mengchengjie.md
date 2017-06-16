@@ -42,6 +42,7 @@
 
 
 # 后台管理
+* 用户编辑：goods.php?act=edit&goods_id=312&extension_code=   admin/goods.php---->goods_info.htm
 * 用户列表： admin/users.php?act=list  user_list()  affiliate_list.htm
 * 批量删除会员： admin/users.php?act=batch_remove action_batch_remove() no template.
 * 编辑用户信息： admin/users.php?act=edit&id=311 action_edit()  user_info.htm

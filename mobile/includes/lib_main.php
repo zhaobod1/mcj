@@ -2115,6 +2115,9 @@ function license_info()
 }
 function url_domain()
 {
+	if (!defined('ADMIN_PATH_M')) {
+		define("ADMIN_PATH_M",ROOT_PATH . 'admin');
+	}
     $curr = strpos(PHP_SELF, ADMIN_PATH_M . '/') !== false ?
             preg_replace('/(.*)(' . ADMIN_PATH_M . ')(\/?)(.)*/i', '\1', dirname(PHP_SELF)) :
             dirname(PHP_SELF);

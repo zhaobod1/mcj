@@ -27,6 +27,7 @@ if (__FILE__ == '')
 
 /* 取得当前ecshop所在的根目录 */
 define('ROOT_PATH', str_replace('includes/init.php', '', str_replace('\\', '/', __FILE__)));
+define("ADMIN_PATH_M",ROOT_PATH . 'admin');
 define('TOKEN', "leileiceshi");
 define('ROOT_PATH_WAP', str_replace('/mobile','',ROOT_PATH));
 if (!file_exists(ROOT_PATH . '../data/install.lock') && !file_exists(ROOT_PATH . '../includes/install.lock')

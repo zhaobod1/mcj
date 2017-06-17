@@ -13,7 +13,10 @@
  * $Id: index.php 17217 2011-01-19 06:29:08Z liubo $
 */
 
-define('IN_ECS', true);
+if (!defined('IN_ECS')) {
+	define('IN_ECS', true);
+
+}
 //判断是否有ajax请求
 $act = !empty($_GET['act']) ? $_GET['act'] : '';
 if ($act == 'cat_rec')

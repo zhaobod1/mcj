@@ -281,7 +281,8 @@ class ecshop extends integrate
 				$values[] = $this->field_mobile_validated . "='" . $cfg['mobile_validated'] . "'";
 			}
 		}
-		
+
+
 		if(isset($cfg['gender']) && $this->field_gender != 'NULL')
 		{
 			$values[] = $this->field_gender . "='" . $cfg['gender'] . "'";

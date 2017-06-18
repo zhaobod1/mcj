@@ -297,8 +297,10 @@ class ecshop extends integrate
     		}
     		 
     	}
-    
-    	if (isset($cfg['gender']) && $this->field_gender != 'NULL')
+	    hlog2WithTitle($this->field_mobile_phone,'$this->field_mobile_phone');
+	    hlog2WithTitle($this->field_mobile_validated,'$this->field_mobile_validated');
+
+	    if (isset($cfg['gender']) && $this->field_gender != 'NULL')
     	{
     		$values[] = $this->field_gender . "='" . $cfg['gender'] . "'";
     	}

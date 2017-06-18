@@ -1075,6 +1075,8 @@ function action_do_mobile_validate ()
 	}
 	else
 	{
+		$sql='update ' . $GLOBALS['ecs']->table('users') . ' set validated=1 where user_id='.$_SESSION['user_id'];
+		$GLOBALS['db']->query($sql);
 		//设置为第二步
 		$_SESSION['security_validate'] = true;
 

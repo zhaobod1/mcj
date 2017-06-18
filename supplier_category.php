@@ -40,6 +40,16 @@ $price_min = isset($_REQUEST['price_min']) && intval($_REQUEST['price_min']) > 0
 $size = isset($_CFG['page_size'])  && intval($_CFG['page_size']) > 0 ? intval($_CFG['page_size']) : 10;
 $sort  = (isset($_REQUEST['sort'])  && in_array(trim(strtolower($_REQUEST['sort'])), array('goods_id', 'shop_price', 'last_update'))) ? 'g.'.trim($_REQUEST['sort'])  : 'g.goods_id';
 $order = (isset($_REQUEST['order']) && in_array(trim(strtoupper($_REQUEST['order'])), array('ASC', 'DESC')))                              ? trim($_REQUEST['order']) : 'DESC';
+
+
+
+/* 火一五信息科技 huo15.com 修复未定义变量 日期：2017/6/18 */
+$default_display_type = $_CFG['show_order_type'] == '0' ? 'list' : ($_CFG['show_order_type'] == '1' ? 'grid' : 'text');
+
+$display  = (isset($_REQUEST['display']) && in_array(trim(strtolower($_REQUEST['display'])), array('list', 'grid', 'text'))) ? trim($_REQUEST['display'])  : (isset($_COOKIE['ECS']['display']) ? $_COOKIE['ECS']['display'] : $default_display_type);
+$filter_attr_str = isset($_REQUEST['filter_attr']) ? htmlspecialchars(trim($_REQUEST['filter_attr'])) : '0';
+
+/* 火一五信息科技 huo15.com 修复未定义变量 日期：2017/6/18 end */
 /*------------------------------------------------------ */
 //-- PROCESSOR
 /*------------------------------------------------------ */

@@ -29,6 +29,24 @@ else
 
 
 /* 初始化分页信息 */
+/* 火一五信息科技 huo15.com 修复警告：undefined variable 日期：2017/6/18 */
+$default_display_type = $_CFG['show_order_type'] == '0' ? 'list' : ($_CFG['show_order_type'] == '1' ? 'grid' : 'text');
+$default_sort_order_type   = $_CFG['sort_order_type'] == '0' ? 'goods_id' : ($_CFG['sort_order_type'] == '1' ? 'shop_price' : 'last_update');
+$sort = (isset($_REQUEST['sort']) && in_array(trim(strtolower($_REQUEST['sort'])), array('goods_id', 'shop_price', 'last_update','click_count','goods_number', 'salenum'))) ? trim($_REQUEST['sort'])  : $default_sort_order_type;
+$default_sort_order_method = $_CFG['sort_order_method'] == '0' ? 'DESC' : 'ASC';
+$order = (isset($_REQUEST['order']) && in_array(trim(strtoupper($_REQUEST['order'])), array('ASC', 'DESC')))                              ? trim($_REQUEST['order']) : $default_sort_order_method;
+$brand = isset($_REQUEST['brand']) && $_REQUEST['brand'] > 0 ? $_REQUEST['brand'] : 0;
+$price_max = isset($_REQUEST['price_max']) && intval($_REQUEST['price_max']) > 0 ? intval($_REQUEST['price_max']) : 0;
+$price_min = isset($_REQUEST['price_min']) && intval($_REQUEST['price_min']) > 0 ? intval($_REQUEST['price_min']) : 0;
+$filter = (isset($_REQUEST['filter'])) ? intval($_REQUEST['filter']) : 0;
+$filter_attr_str = isset($_REQUEST['filter_attr']) ? htmlspecialchars(trim($_REQUEST['filter_attr'])) : '0';
+
+
+/* 火一五信息科技 huo15.com 修复警告：undefined variable 日期：2017/6/18 end */
+
+
+
+
 $cat_id = isset($_REQUEST['cid'])   && intval($_REQUEST['cid'])  > 0 ? intval($_REQUEST['cid'])  : 0;
 $keywords = isset($_REQUEST['keywords']) && !empty($_REQUEST['keywords']) ? htmlspecialchars($_REQUEST['keywords']) : '';
 $keywords = ($keywords == '请输入你要查找的商品') ? '' : $keywords;
@@ -41,6 +59,7 @@ $display  = in_array($display, array('list', 'grid', 'text')) ? $display : 'text
 /*------------------------------------------------------ */
 
 /* 页面的缓存ID */
+
 $cache_id = sprintf('%X', crc32($cat_id . '-' . $display . '-' . $sort  .'-' . $order  .'-' . $page . '-' . $size . '-' . $_SESSION['user_rank'] . '-' .
     $_CFG['lang'] .'-'. $brand. '-' . $price_max . '-' .$price_min . '-' . $filter_attr_str.'-'.$_GET['suppId']));
 

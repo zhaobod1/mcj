@@ -144,25 +144,34 @@ $smarty->display('mall.dwt', $cache_id);
  */
 function index_get_new_articles()
 {
-    $sql = 'SELECT a.article_id, a.title, a.add_time, a.file_url, a.open_type ' .
+    /*$sql = 'SELECT a.article_id,a.cat_id, a.title, a.add_time, a.file_url, a.open_type ' .
             ' FROM ' . $GLOBALS['ecs']->table('supplier_article') . ' AS a ' .
             ' WHERE a.is_open = 1 AND supplier_id ='.$_GET['suppId'] .
-            ' ORDER BY a.article_type DESC, a.add_time DESC LIMIT ' . $GLOBALS['_CFG']['article_number'];
-    $res = $GLOBALS['db']->getAll($sql);
+            ' ORDER BY a.article_type DESC, a.add_time DESC LIMIT ' . $GLOBALS['_CFG']['article_number'];*/
+    /* 火一五信息科技 huo15.com 修复 sql语句 日期：2017/6/18 */
+	$sql = 'SELECT a.article_id,a.cat_id,b.cat_name, a.title, a.add_time, a.file_url, a.open_type ' .
+		' FROM ' . $GLOBALS['ecs']->table('supplier_article') . ' AS a inner join ' . $GLOBALS['ecs']->table('supplier_article_cat') .
+		' AS b WHERE a.cat_id=b.cat_id AND a.is_open = 1 AND supplier_id ='.$_GET['suppId'] .
+		' ORDER BY a.article_type DESC, a.add_time DESC LIMIT ' . $GLOBALS['_CFG']['article_number'];
+    /* 火一五信息科技 huo15.com 修复 sql语句 日期：2017/6/18 end */
 
+    $res = $GLOBALS['db']->getAll($sql);
     $arr = array();
-    foreach ($res AS $idx => $row)
-    {
-        $arr[$idx]['id']          = $row['article_id'];
-        $arr[$idx]['title']       = $row['title'];
-        $arr[$idx]['short_title'] = $GLOBALS['_CFG']['article_title_length'] > 0 ?
-                                        sub_str($row['title'], $GLOBALS['_CFG']['article_title_length']) : $row['title'];
-        $arr[$idx]['cat_name']    = $row['cat_name'];
-        $arr[$idx]['add_time']    = local_date($GLOBALS['_CFG']['date_format'], $row['add_time']);
-        $arr[$idx]['url']         = $row['open_type'] != 1 ?
-                                        build_uri('supplier', array('go'=>'article','suppid'=>$_GET['suppId'],'aid' => $row['article_id']), $row['title']) : trim($row['file_url']);
-        $arr[$idx]['cat_url']     = build_uri('article_cat', array('acid' => $row['cat_id']), $row['cat_name']);
-    }
+	foreach ($res AS $idx => $row)
+	{
+		$arr[$idx]['id']          = $row['article_id'];
+		$arr[$idx]['title']       = $row['title'];
+		$arr[$idx]['short_title'] = $GLOBALS['_CFG']['article_title_length'] > 0 ?
+			sub_str($row['title'], $GLOBALS['_CFG']['article_title_length']) : $row['title'];
+		/* 火一五信息科技 huo15.com 修复undefined index cat_name 日期：2017/6/18 */
+		//$arr[$idx]['cat_name']    = $row['cat_name'];
+		$arr[$idx]['cat_name']    = isset($row['cat_name'])?$row['cat_name']:'';
+		/* 火一五信息科技 huo15.com 修复undefined index cat_name 日期：2017/6/18 end */
+
+		$arr[$idx]['add_time']    = local_date($GLOBALS['_CFG']['date_format'], $row['add_time']);
+		$arr[$idx]['url']         = $row['open_type'] != 1 ? build_uri('supplier', array('go'=>'article','suppid'=>$_GET['suppId'],'aid' => $row['article_id']), $row['title']) : trim($row['file_url']);
+		$arr[$idx]['cat_url']     = build_uri('article_cat', array('acid' => $row['cat_id']), $row['cat_name']);
+	}
 
     return $arr;
 }

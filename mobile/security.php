@@ -313,7 +313,10 @@ function action_default ()
 	$user_info = get_profile($user_id);
 	$user_info['email'] = encrypt_email($user_info['email']);
 	$user_info['mobile_phone'] = encrypt_mobile($user_info['mobile_phone']);
-	
+
+
+
+
 	$smarty->assign('info', $user_info);
 	$smarty->assign('action', 'account_security');
 	$smarty->display('user_security.dwt');

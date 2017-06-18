@@ -1,4 +1,29 @@
 
+<!-- 青岛火一五信息科技有限公司huo15.com 添加模态框绑定手机号 日期：2017/6/18 -->
+<div class = "bg-model" style="position:absolute;top:0%;left:0%;display:none;background:rgba(0,0,0,0.3);width:100%;height:100%;position:fixed;z-index:99999">
+ 　　<div class = 'content' style="position: absolute;left: 20%;top: 25%;border-radius: 8px;width: 60%;background-color: #fff;padding: 10px;">
+     <form action="user.php?act=huo15_binding_phone" method="post">
+      <h3 style="margin-bottom: 20px;border-bottom: 1px solid #eeecec;margin: 10px auto;">请绑定手机号码</h3>
+      <div class="name">
+       <input type="text"  name="mobile_phone" value="" placeholder="请输入手机号码" class="c-f-text">
+      </div>
+      <div class="field submit-btn">
+       <input type="submit" value="确认绑定" class="btn_big1">
+      </div>
+     </form>
+ 　　</div>
+</div>
+<script>
+ var mobile_phone='{$mobile_phone}';
+ $(function () {
+   if (!mobile_phone) {
+     $('.bg-model').show();
+   }
+ })
+</script>
+<!-- 青岛火一五信息科技有限公司huo15.com 添加模态框绑定手机号 日期：2017/6/18 end -->
+
+
 <div class="user_com">
 <!--top-->
 <div class="com_top border_bottm">

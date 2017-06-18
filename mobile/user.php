@@ -183,6 +183,25 @@ if(! function_exists($function_name))
 
 call_user_func($function_name);
 
+/**
+ * 火一五信息科技，添加绑定手机号码
+ */
+function action_huo15_binding_phone() {
+	$phone=isset($_POST['mobile_phone'])? $_POST['mobile_phone']:null;
+	if(preg_match('/[\d]{11}/',$phone)) {
+		$sql = "select * from " . $GLOBALS['ecs']->table('users').' where mobile_phone="' . $phone . '"';
+		$mobile_phone=$GLOBALS['db']->getOne($sql);
+		if ($mobile_phone) {
+			show_message('手机号已经存在，请重新输入');
+		}
+
+		$sql="update ".$GLOBALS['ecs']->table('users')." set mobile_phone='".$phone . '\' where user_id=' . $_SESSION['user_id'];
+		$res=$GLOBALS['db']->query($sql);
+		show_message('手机号码绑定成功！您的手机号为：'.$phone,null,'user.php?mt='.rand(0,9999));
+	} else {
+		show_message('手机号码输入有误');
+	}
+}
 /* 评价订单 */
 function action_comment_order(){
 	$user = $GLOBALS['user'];
@@ -553,7 +572,13 @@ function action_default()
 	$smarty->assign('info', get_user_default($user_id));
 	$smarty->assign('user_notice', $_CFG['user_notice']);
 	$smarty->assign('prompt', get_user_prompt($user_id));
-	
+
+	/* 火一五信息科技 huo15.com 添加手机版绑定 日期：2017/6/18 */
+	$sql = "select mobile_phone from " . $GLOBALS['ecs']->table('users') . ' where user_id=' . $user_id;
+	$mobile_phone=$GLOBALS['db']->getOne($sql);
+	$smarty->assign('mobile_phone', $mobile_phone);
+	/* 火一五信息科技 huo15.com 添加手机版绑定 日期：2017/6/18 end */
+
 	$smarty->display('user_clips.dwt');
 }
 

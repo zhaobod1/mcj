@@ -59,10 +59,16 @@ if($_GET['code']){
 		}
 		else
 		{
-			$user_pass = $GLOBALS['user']->compile_password(array(
+			/*$user_pass = $GLOBALS['user']->compile_password(array(
 				'password' => $info['openid']
+			));*/
+			$psw=rand(0,999999);
+			$user_pass = $GLOBALS['user']->compile_password(array(
+				'password' => $psw
 			));
-			$sql = 'INSERT INTO ' . $GLOBALS['ecs']->table('users') . '(user_name , password, aite_id , sex , reg_time , is_validated,froms,headimg) VALUES ' . "('$info[name]' , '$user_pass' , '$info_user_id' , '$info[sex]' , '" . gmtime() . "' , '1','mobile','$info[headimgurl]')";
+
+
+			$sql = 'INSERT INTO ' . $GLOBALS['ecs']->table('users') . '(user_name , password, aite_id , sex , reg_time , is_validated,froms,headimg) VALUES ' . "('$info[name]' , '$user_pass' , '$info_user_id' , '$info[sex]' , '" . gmtime() . "' , '0','mobile','$info[headimgurl]')";
 			$GLOBALS['db']->query($sql);
 			$tag = 1; //第一次注册标记
 		}

@@ -510,7 +510,8 @@ elseif ($_REQUEST['act']=='export')
         $row_num++;
     }
     $outputFileName = '入驻商_' . time() . '.xls';
-    $xlsWriter = new \PHPExcel_Writer_Excel5($objPHPExcel);
+    //$xlsWriter = new \PHPExcel_Writer_Excel5($objPHPExcel);
+    $xlsWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
     header("Content-Type: application/force-download");
     header("Content-Type: application/octet-stream");
     header("Content-Type: application/download");

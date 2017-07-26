@@ -39,6 +39,49 @@
 
 {if  $action eq 'default'}
 
+    {if !$mobile_phone}
+    <div class="binding-phone-div">
+        <h3>安全绑定</h3>
+        <form action="user.php?act=huo15_binding_phone" method="post">
+            <div class="name"><span>手机号码</span>
+                <input type="text"  name="mobile_phone" value="" placeholder="绑定手机号" class="c-f-text">
+            </div>
+            <div class="name"><span>登录密码</span>
+                <input type="password"  name="password" value="" placeholder="至少6位" class="c-f-text">
+            </div>
+            <div class="name"><span>确认密码</span>
+                <input type="password"  name="confirm_password" value="" placeholder="与登录密码一致" class="c-f-text">
+            </div>
+            <div class="name"><span>支付密码</span>
+                <input type="password"  name="pay_pass" value="" placeholder="至少6位" class="c-f-text">
+            </div>
+            <div class="name"><span>确认密码</span>
+                <input type="password"  name="confirm_pay_pass" value="" placeholder="与支付密码一致" class="c-f-text">
+            </div>
+            <div class="field submit-btn">
+                <input type="submit" value="确认修改" class="btn_big1">
+            </div>
+        </form>
+    </div>
+    <style>
+        .binding-phone-div {
+            width:80%;
+            background: #EEEEEE;
+            border:1px solid #3a3a3a;
+            position: fixed;
+            top:30%;
+            left:8%;
+            padding:10px;
+            z-index:99999;
+        }
+        .binding-phone-div h3 {
+            border-bottom:1px solid #999;
+            margin-bottom:10px;
+        }
+    </style>
+    {/if}
+
+
 {include file='library/user_nav.lbi'}
    <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
 <!-- #BeginLibraryItem "/library/footer_nav.lbi" --><!-- #EndLibraryItem -->

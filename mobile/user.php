@@ -188,6 +188,26 @@ call_user_func($function_name);
  */
 function action_huo15_binding_phone() {
 	$phone=isset($_POST['mobile_phone'])? $_POST['mobile_phone']:null;
+	$password=isset($_POST['password'])? $_POST['password']:null;
+	$confirm_password=isset($_POST['confirm_password'])? $_POST['confirm_password']:null;
+	$pay_pass=isset($_POST['pay_pass'])? $_POST['pay_pass']:null;
+	$confirm_pay_pass=isset($_POST['confirm_pay_pass'])? $_POST['confirm_pay_pass']:null;
+
+	if(strlen($password)<6) {
+		show_message('密码少于6位');
+	}
+	if($password!=$confirm_password) {
+		show_message('密码两次输入不一致');
+	}
+	if(strlen($pay_pass)<6) {
+		show_message('支付密码少于6位');
+	}
+	if($pay_pass!=$confirm_pay_pass) {
+		show_message('支付密码两次输入不一致');
+	}
+
+
+
 	if(preg_match('/[\d]{11}/',$phone)) {
 		$sql = "select * from " . $GLOBALS['ecs']->table('users').' where mobile_phone="' . $phone . '"';
 		$mobile_phone=$GLOBALS['db']->getOne($sql);
@@ -195,9 +215,9 @@ function action_huo15_binding_phone() {
 			show_message('手机号已经存在，请重新输入');
 		}
 
-		$sql="update ".$GLOBALS['ecs']->table('users')." set mobile_phone='".$phone . '\' where user_id=' . $_SESSION['user_id'];
+		$sql="update ".$GLOBALS['ecs']->table('users')." set is_surplus_open=1, ec_salt='', is_validated=1,validated=1, password='".md5($password)."', mobile_phone='".$phone . "',surplus_password='".md5($pay_pass)."' where user_id=" . $_SESSION['user_id'];
 		$res=$GLOBALS['db']->query($sql);
-		show_message('手机号码绑定成功！您的手机号为：'.$phone,null,'user.php?mt='.rand(0,9999));
+		show_message('安全绑定成功！您的手机号为：'.$phone,null,'user.php?mt='.rand(0,9999));
 	} else {
 		show_message('手机号码输入有误');
 	}
@@ -581,7 +601,9 @@ function action_default()
 
 	$smarty->display('user_clips.dwt');
 }
-
+function action_binding_phone_pass() {
+	p($_POST);die;
+}
 function action_check_mobile()
 {
 	$user = $GLOBALS['user'];

@@ -14,6 +14,7 @@
 */
 
 define('IN_ECS', true);
+
 $cooke_money=isset($_GET['money'])?floatval($_GET['money']):'';
 if($cooke_money) {
 	setcookie('charge_money',$cooke_money);
@@ -21,6 +22,7 @@ if($cooke_money) {
 	setcookie('charge_money',null);
 }
 require(dirname(__FILE__) . '/includes/init.php');
+
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
@@ -116,7 +118,6 @@ if ($act == 'cat_rec')
 /*------------------------------------------------------ */
 /* 缓存编号 */
 $cache_id = sprintf('%X', crc32($_SESSION['user_rank'] . '-' . $_CFG['lang']));
-
 if (!$smarty->is_cached('index.dwt', $cache_id))
 {
     assign_template();

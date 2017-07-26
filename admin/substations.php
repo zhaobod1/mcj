@@ -29,6 +29,7 @@ if ($_REQUEST['act'] == 'list') {
     /* 检查权限 */
     admin_priv('supplier_manage');
 
+
     $listState=isset($_REQUEST['state'])?$_REQUEST['state']:0;
     if ($_REQUEST['state'] == 1) {
         /* 查询 */
@@ -245,7 +246,7 @@ elseif ($_REQUEST['act'] == 'update') {
         sys_msg('该用户信息不存在！');
 
     }
-    $sql = "SELECT * FROM " . $ecs->table('substation_apply') . " WHERE member_id = '" . $supplier_id . "' AND state>-1 ORDER BY DESC ";
+    $sql = "SELECT * FROM " . $ecs->table('substation_apply') . " WHERE member_id = '" . $supplier_id . "' AND state>-1 ORDER BY created_at DESC ";
     $applyInfo = $db->getRow($sql);
 
     /* 代码增加_end  By  supplier.68ecshop.com */

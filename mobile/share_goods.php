@@ -17,11 +17,30 @@
 define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
+include 'define_const.php';
 
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
 }
+
+// 判断是否登录及是否有权限群发
+$user_id = isset($_SESSION['user_id'])?$_SESSION['user_id']:0;
+$gid=isset($_POST['gid'])?$_POST['gid']:0;
+
+// 判断网页是否已经登录,及 是否包含分站权限
+
+$db = $GLOBALS['db'];
+$ecs = $GLOBALS['ecs'];
+$sql = 'SELECT id FROM ' . $ecs->table('substation_apply') . ' WHERE state=12 and member_id ='.$user_id;
+$rowResult= $db->getRow($sql);
+
+if($user_id and $rowResult)
+{
+    ob_clean();
+    header("location:/mobile/wechat_erweima.php?id=".$user_id.'&gid='.$gid);
+}
+
 
 $templates = empty($topic['template']) ? 'share_goods.dwt' : $topic['template'];
 

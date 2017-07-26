@@ -5,12 +5,11 @@ define('IN_ECS', true);
 
 require(dirname(__FILE__) . '/includes/init.php');
 require(dirname(__FILE__) . '/includes/lib_v_user.php');
-require_once dirname(__FILE__) . '/toArticleSys.php';
+
 if ((DEBUG_MODE & 2) != 2)
 {
     $smarty->caching = true;
 }
-
 if($_CFG['is_distrib'] == 0)
 {
 	show_message('没有开启微信分销服务！','返回首页','index.php'); 

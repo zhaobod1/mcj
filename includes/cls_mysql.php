@@ -97,7 +97,9 @@ class cls_mysql
         {
             if (PHP_VERSION >= '4.2')
             {
-                $this->link_id = @mysql_connect($dbhost, $dbuser, $dbpw, true);
+
+	            $this->link_id = @mysql_connect($dbhost, $dbuser, $dbpw, true);
+
             }
             else
             {

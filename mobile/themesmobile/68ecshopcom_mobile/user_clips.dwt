@@ -68,7 +68,7 @@
             width:80%;
             background: #EEEEEE;
             border:1px solid #3a3a3a;
-            position: fixed;
+            position: absolute;
             top:30%;
             left:8%;
             padding:10px;

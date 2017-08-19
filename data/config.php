@@ -23,60 +23,29 @@ function huo15_get_client_ip()
 }
 
 
-if (huo15_get_client_ip() == '127.0.0.1') {
-
-
-	// database host
-	$db_host = "localhost:3306";
-	// database name
-	$db_name = "mcj";
-
-// database username
-	$db_user = "mcj";
-
-// database password
-	$db_pass = "huo15com";
-
-
-// table prefix
-	$prefix = "ecs_";
-
-	$timezone = "UTC";
-
-	$cookie_path = "/";
-
-	$cookie_domain = "";
-
-	$session = "1440";
-
-
-} else {
-
 
 // database host
-	$db_host = "localhost:3306";
+$db_host = "hdm174585311.my3w.com:3306";
 
 // database name
-	$db_name = "mcj";
+$db_name = "hdm174585311_db";
 
 // database username
-	$db_user = "mcj";
+$db_user = "hdm174585311";
 
 // database password
-	$db_pass = "huo15com";
+$db_pass = "huo15com";
 
 // table prefix
-	$prefix = "ecs_";
+$prefix = "ecs_";
 
-	$timezone = "PRC";
+$timezone = "PRC";
 
-	$cookie_path = "/";
+$cookie_path = "/";
 
-	$cookie_domain = "";
+$cookie_domain = "";
 
-	$session = "1440";
-}
-
+$session = "1440";
 
 define('EC_CHARSET', 'utf-8');
 
@@ -102,7 +71,7 @@ define('API_TIME', '2017-06-14 14:20:08');
  * 15 = 1 + 2 + 4 + 8
  */
 
-define('DEBUG_MODE', '15');
+define('DEBUG_MODE', '1');
 
 
 ?>
